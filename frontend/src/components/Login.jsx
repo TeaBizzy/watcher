@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-function Login() {
+function Login(props) {
 
+  const { setLoggedIn } = props;
   const [loginValues, setLoginValues] = useState({email: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -17,7 +18,8 @@ function Login() {
     else if (!password) setErrorMessage(`Password can't be blank!`)
     else setErrorMessage('')
 
-    console.log('Login')
+    console.log('Login');
+    if (!errorMessage) setLoggedIn(true);
   };
 
   return (
