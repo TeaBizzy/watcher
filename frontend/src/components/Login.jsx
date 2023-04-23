@@ -3,14 +3,26 @@ import React, { useState } from "react";
 function Login() {
 
   const [loginValues, setLoginValues] = useState({email: '', password: ''});
+  const [errorMessage, setErrorMessage] = useState('');
 
   function handleSubmit(e) {
+    const email = loginValues.email;
+    const password = loginValues.password;
+
+    console.log(email);
+    
     e.preventDefault();
+    // user input error handling
+    if (!email) setErrorMessage(`Email can't be blank!`)
+    else if (!password) setErrorMessage(`Password can't be blank!`)
+    else setErrorMessage('')
+
     console.log('Login')
   };
 
   return (
-    <div className="bg-slate-900 h-screen w-full flex justify-center items-center">
+    <div className="bg-slate-900 h-screen w-full flex flex-col justify-center items-center">
+      {errorMessage && <p className="text-red-600 font-main">{errorMessage}</p>}
       <form className="flex flex-col items-center" onSubmit={e => handleSubmit(e)}>
         <span className="flex flex-row justify-end pb-4 w-full">
           <label className="text-white font-main pr-2">E-mail</label>
