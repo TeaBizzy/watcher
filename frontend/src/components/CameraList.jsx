@@ -3,7 +3,7 @@ import Camera from "./Camera";
 
 function CameraList(props) {
 
-  const { cameras } = props;
+  const { cameras, setCurrentCamera, currentCamera } = props;
   const cameraComponents = cameras.map((camera, idx) => {
     return <Camera 
       key={idx}
@@ -12,6 +12,8 @@ function CameraList(props) {
       active={camera.active}
       motion={camera.motion}
       sound={camera.sound}
+      setCurrentCamera={setCurrentCamera}
+      isSelected={currentCamera === idx}
       />
   })
 

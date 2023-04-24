@@ -9,7 +9,7 @@ import { generateStatus } from "./helpers/camera-status-simulator";
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false)
-  const [selectedCameraIdx, setSelectedCameraIdx] = useState(-1);
+  const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
   const [cameraData, setCameraData] = useState([]);
   
   // For visual testing of this component
@@ -41,8 +41,8 @@ function App() {
       {!loggedIn ? 
         <Login setLoggedIn={setLoggedIn} /> :
         <div className="h-screen bg-slate-900 flex flex-row">
-          <CameraList cameras={cameraData} />
-          {selectedCameraIdx === -1 && <CameraView />}
+          <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} />
+          {currentCamera === -1 && <CameraView />}
         </div>
       }
       <Footer />
