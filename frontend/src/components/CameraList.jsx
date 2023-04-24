@@ -3,7 +3,11 @@ import Camera from "./Camera";
 
 function CameraList() {
   return (
-    <div className="bg-slate-900 min-h-screen pt-16 pb-24 px-4 md:w-1/4 flex flex-col overflow-y-clip">
+    <div className="max-h-full mt-16 pb-24 px-4 w-full md:w-1/4 overflow-y-scroll">
+      <Camera />
+      <Camera />
+      <Camera />
+      <Camera />
       <Camera />
       <Camera />
       <Camera />

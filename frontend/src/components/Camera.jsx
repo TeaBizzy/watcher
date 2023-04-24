@@ -7,8 +7,8 @@ function Camera() {
 
   const [status, setStatus] = useState({
     active: true,
-    sound: true,
-    motion: true
+    sound: false,
+    motion: false
   })
 
   // For visual testing of this component
