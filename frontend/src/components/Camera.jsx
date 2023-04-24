@@ -6,7 +6,7 @@ function Camera(props) {
 
   const { id, name, active, motion, sound, setCurrentCamera, isSelected } = props;
   return(
-    <div className={`h-24 my-2 ${isSelected ? 'bg-violet-700' : 'bg-gray-600'} flex justify-between items-center`} onClick={() => setCurrentCamera(id)}>
+    <div className={`hover:bg-violet-700 h-24 w-full my-2 ${isSelected ? 'bg-violet-700' : 'bg-gray-600'} flex justify-between items-center`} onClick={() => setCurrentCamera(id)}>
       <h2 className="text-white font-main text-l pl-2 md:text-xl">{name}</h2>
       <span className="h-full flex items-center">
         { (motion && active) && <FaWalking  className="fill-white h-6 w-6 md:h-12 md:hw-12"/> }
