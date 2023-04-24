@@ -1,21 +1,23 @@
 import React from "react";
 import Camera from "./Camera";
 
-function CameraList() {
+function CameraList(props) {
+
+  const { cameras } = props;
+  const cameraComponents = cameras.map((camera, idx) => {
+    return <Camera 
+      key={idx}
+      id={idx}
+      name={camera.name}
+      active={camera.active}
+      motion={camera.motion}
+      sound={camera.sound}
+      />
+  })
+
   return (
     <div className="max-h-full mt-16 pb-24 px-4 w-full md:w-1/4 overflow-y-scroll">
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
-      <Camera />
+      {cameraComponents}
     </div>
   )
 }
