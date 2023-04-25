@@ -8,7 +8,7 @@ import { generateStatus } from "./helpers/camera-status-simulator";
 import MediaQuery from "react-responsive";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [session, setSession] = useState(false)
   const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
   const [cameraData, setCameraData] = useState(getCameraData());
   
@@ -43,8 +43,8 @@ function App() {
   return (
     <>
       <Header />
-      {!loggedIn ? 
-        <Login setLoggedIn={setLoggedIn} /> :
+      {!session ? 
+        <Login setSession={setSession} /> :
         <div className="h-screen bg-slate-900 flex flex-row">
           <MediaQuery maxWidth={1024}>
             {currentCamera === -1 ? 

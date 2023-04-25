@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 function Login(props) {
-
-  const { setLoggedIn } = props;
+  const { setSession } = props;
   const [loginValues, setLoginValues] = useState({email: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -10,16 +10,20 @@ function Login(props) {
     const email = loginValues.email;
     const password = loginValues.password;
 
-    console.log(email);
-    
     e.preventDefault();
     // user input error handling
     if (!email) setErrorMessage(`Email can't be blank!`)
     else if (!password) setErrorMessage(`Password can't be blank!`)
     else setErrorMessage('')
 
-    console.log('Login');
-    if (!errorMessage) setLoggedIn(true);
+    if (errorMessage) return
+    axios.post('http://localhost:3030/login', {email, password}, {withCredentials: true})
+      .then(res => {
+        setSession(res.data)
+      })
+      .catch(err => {
+        setErrorMessage(err.response.data)
+      })
   };
 
   return (
