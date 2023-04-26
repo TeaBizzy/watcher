@@ -9,19 +9,17 @@ function Login(props) {
   function handleSubmit(e) {
     const email = loginValues.email;
     const password = loginValues.password;
-
     e.preventDefault();
+    
     // user input error handling
     if (!email) {
       setErrorMessage(`Email can't be blank!`)
+      return
     } else if (!password) {
       setErrorMessage(`Password can't be blank!`)
+      return
     } else {
       setErrorMessage('')
-    }
-
-    if (errorMessage) {
-      return
     }
     
     axios.post('http://localhost:3030/login', {email, password}, {withCredentials: true})

@@ -47,4 +47,11 @@ app.post('/login', (req, res) => {
     })
 })
 
+// Logs user out
+app.post('/logout', (req, res) => {
+  req.session = null;
+  res.status(200);
+  res.send()
+})
+
 module.exports = app;
