@@ -7,7 +7,7 @@ function Header(props) {
 
   function handleLogOut(e) {
     e.preventDefault();
-    axios.post('http://localhost:3030/logout', {}, {withCredentials: true})
+    axios.post('http://localhost:3030/api/logout', {}, {withCredentials: true})
       .then(() => setCurrentUser(''))
   }
 

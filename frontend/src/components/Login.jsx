@@ -22,7 +22,7 @@ function Login(props) {
       setErrorMessage('')
     }
     
-    axios.post('http://localhost:3030/login', {email, password}, {withCredentials: true})
+    axios.post('http://localhost:3030/api/login', {email, password}, {withCredentials: true})
       .then(res => {
         setCurrentUser(res.data); // Sets currentUser to their E-mail.
       })
