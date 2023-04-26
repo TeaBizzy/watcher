@@ -42,21 +42,23 @@ function App() {
 
   return (
     <>
-      <Header />
       {!currentUser ? 
         <Login setCurrentUser={setCurrentUser}/> :
-        <div className="h-screen bg-slate-900 flex flex-row">
-          <MediaQuery maxWidth={1024}>
-            {currentCamera === -1 ? 
-              <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} /> :
-              <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>
-            }
-          </MediaQuery>
-          <MediaQuery minWidth={1024}>
-            <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} />
-            {currentCamera !== -1 && <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>}
-          </MediaQuery>
-        </div>
+        <>
+          <Header setCurrentUser={setCurrentUser}/>
+          <div className="h-screen bg-slate-900 flex flex-row">
+            <MediaQuery maxWidth={1024}>
+              {currentCamera === -1 ? 
+                <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} /> :
+                <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>
+              }
+            </MediaQuery>
+            <MediaQuery minWidth={1024}>
+              <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} />
+              {currentCamera !== -1 && <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>}
+            </MediaQuery>
+          </div>
+        </>
       }
       <Footer />
     </>
