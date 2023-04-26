@@ -1,11 +1,12 @@
 import React from "react";
+import ReactPlayer from "react-player";
 import { FaWalking } from "react-icons/fa";
 import { BsCameraVideoOffFill, BsEar } from "react-icons/bs";
 import { TfiBackLeft } from "react-icons/tfi"
 
 function CameraView(props) {
 
-  const { active, motion, sound, videoSrc, name } = props.camera
+  const { active, motion, sound, cameraID, name } = props.camera
   const { setCurrentCamera } = props;
 
   return (
@@ -21,11 +22,13 @@ function CameraView(props) {
       </div>
       <div className="w-full h-full px-4 md:px-24">
         {active ?
-        <iframe 
-          title="YouTube video player"
-          src={`${videoSrc}?autoplay=1`}
-          className="w-full h-full">
-        </iframe> :
+        <ReactPlayer 
+          url={`http://localhost:3030/api/stream/${cameraID}`}
+          playing
+          controls
+          width={"100%"}
+          height={"100%"}
+        /> :
         <div className="bg-black flex flex-col justify-center items-center h-full w-full">
           <BsCameraVideoOffFill className="fill-white h-12 w-12"/>
           <p className="font-main text-white">OFFLINE</p>
