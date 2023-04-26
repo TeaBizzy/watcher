@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 
 function Login(props) {
-  const { setSession } = props;
+  const { setCurrentUser } = props;
   const [loginValues, setLoginValues] = useState({email: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -12,14 +12,21 @@ function Login(props) {
 
     e.preventDefault();
     // user input error handling
-    if (!email) setErrorMessage(`Email can't be blank!`)
-    else if (!password) setErrorMessage(`Password can't be blank!`)
-    else setErrorMessage('')
+    if (!email) {
+      setErrorMessage(`Email can't be blank!`)
+    } else if (!password) {
+      setErrorMessage(`Password can't be blank!`)
+    } else {
+      setErrorMessage('')
+    }
 
-    if (errorMessage) return
+    if (errorMessage) {
+      return
+    }
+    
     axios.post('http://localhost:3030/login', {email, password}, {withCredentials: true})
       .then(res => {
-        setSession(res.data)
+        setCurrentUser(res.data); // Sets currentUser to their E-mail.
       })
       .catch(err => {
         setErrorMessage(err.response.data)

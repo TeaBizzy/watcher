@@ -8,7 +8,7 @@ import { generateStatus } from "./helpers/camera-status-simulator";
 import MediaQuery from "react-responsive";
 
 function App() {
-  const [session, setSession] = useState(false)
+  const [currentUser, setCurrentUser] = useState('');
   const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
   const [cameraData, setCameraData] = useState(getCameraData());
   
@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     const intervalId = setInterval(() => setCameraData(getCameraData), 10000)
 
-    return () => {clearInterval(intervalId)}
+    return () => clearInterval(intervalId)
   }, [])
 
   function getCameraData() {
@@ -43,8 +43,8 @@ function App() {
   return (
     <>
       <Header />
-      {!session ? 
-        <Login setSession={setSession} /> :
+      {!currentUser ? 
+        <Login setCurrentUser={setCurrentUser}/> :
         <div className="h-screen bg-slate-900 flex flex-row">
           <MediaQuery maxWidth={1024}>
             {currentCamera === -1 ? 

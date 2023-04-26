@@ -33,17 +33,15 @@ app.post('/login', (req, res) => {
     .then(data => {
       return bcrypt.compare(credentials.password, data.rows[0].password)
         .then(result => {
-          console.log(result);
-          if(!result) { return Promise.reject()}
-          console.log(`Logged in successfully as ${credentials.email}`)
-          req.session.id = data.rows[0].id
+          if(!result) {
+            return Promise.reject()
+          }
+          req.session.email = data.rows[0].email
           res.status(200)
           res.json(data.rows[0].email)
         })
     })
-    
     .catch(err => {
-      console.log('Invalid Email or Password')
       res.status(401)
       res.send('Invalid Email or Password')
     })
