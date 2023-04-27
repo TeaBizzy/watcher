@@ -32,7 +32,7 @@ function App() {
       {!currentUser ? 
         <Login setCurrentUser={setCurrentUser}/> :
         <>
-          <Header setCurrentUser={setCurrentUser}/>
+          <Header setCurrentUser={setCurrentUser} email={currentUser.email}/>
           <div className="h-screen bg-slate-900 flex flex-row">
             {/* Mobile View */}
             <MediaQuery maxWidth={1024}>
