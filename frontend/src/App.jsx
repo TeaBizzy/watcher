@@ -1,32 +1,31 @@
+// ___________________________________________________________________________ //
+// *----------------------------- Configuration -----------------------------* //
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Login from "./components/Login";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CameraList from "./components/CameraList";
 import CameraView from "./components/CameraView";
 import MediaQuery from "react-responsive";
 import useValidateSession from "./hooks/useValidateSession";
-import axios from "axios";
 import { useSimulateStatus, useSimulateActivity } from "./hooks/useCameraSimulations";
+import useFetchCameras from "./hooks/useFetchCameras";
+
 
 function App() {
+  // ____________________________________________________________________ //
+  // *----------------------------- States -----------------------------* //
   const [currentUser, setCurrentUser] = useState({});
   const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
   const [cameraData, setCameraData] = useState([]);
   
+  // ___________________________________________________________________ //
+  // *----------------------------- Hooks -----------------------------* //
   useValidateSession(setCurrentUser);
+  useFetchCameras(currentUser, setCameraData);
   useSimulateStatus(setCameraData);
   useSimulateActivity(setCameraData);
-
-  // Loads Camera Data
-  useEffect(() => {
-    if (!currentUser.id) {
-      return
-    }
-    axios(`http://localhost:3030/api/camera/${currentUser.id}`, {withCredentials: true})
-      .then(res => setCameraData(res.data))
-      .catch(err => console.log(err))
-  }, [currentUser])
 
   return (
     <>
@@ -35,13 +34,15 @@ function App() {
         <>
           <Header setCurrentUser={setCurrentUser}/>
           <div className="h-screen bg-slate-900 flex flex-row">
+            {/* Mobile View */}
             <MediaQuery maxWidth={1024}>
               {currentCamera === -1 ? 
-                <CameraList cameras={cameraData} setCameraData={setCameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} /> :
+                <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} /> :
                 <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>
               }
             </MediaQuery>
-            <MediaQuery minWidth={1024}>
+            {/* Desktop View */}
+            <MediaQuery minWidth={1024}> 
               <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} />
               {currentCamera !== -1 && <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>}
             </MediaQuery>

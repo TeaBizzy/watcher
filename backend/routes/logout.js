@@ -3,13 +3,13 @@
 
 const express = require('express');
 const router = express.Router();
-const cors = require('cors')
+const cors = require('cors');
 
 
 // ________________________________________________________________________ //
 // *----------------------------- Middleware -----------------------------* //
 
-router.use(cors({origin: 'http://localhost:3000', credentials: true}))
+router.use(cors({origin: 'http://localhost:3000', credentials: true}));
 
 // ___________________________________________________________________________ //
 // *-------------------------------- Routing --------------------------------* //
@@ -18,7 +18,7 @@ router.use(cors({origin: 'http://localhost:3000', credentials: true}))
 router.post('/', (req, res) => {
   req.session = null; // Delete encrypted cookie.
   res.status(200);
-  res.send()
+  res.send();
 })
 
 module.exports = router;
