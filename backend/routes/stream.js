@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => {
       }
     })
     .catch((err) => {
-      res.status('404')
+      res.status(404);
       res.send();
     })
 

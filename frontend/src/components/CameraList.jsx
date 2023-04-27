@@ -3,7 +3,7 @@ import Camera from "./Camera";
 
 function CameraList(props) {
 
-  const { cameras, setCurrentCamera, currentCamera } = props;
+  const { cameras, setCameraData, setCurrentCamera, currentCamera } = props;
   const cameraComponents = cameras.map((camera, idx) => {
     return <Camera 
       key={idx}
