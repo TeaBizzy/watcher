@@ -1,17 +1,27 @@
+// ___________________________________________________________________________ //
+// *----------------------------- Configuration -----------------------------* //
+
 import React from "react";
+import ReactPlayer from "react-player";
 import { FaWalking } from "react-icons/fa";
 import { BsCameraVideoOffFill, BsEar } from "react-icons/bs";
 import { TfiBackLeft } from "react-icons/tfi"
 
+// _______________________________________________________________________ //
+// *----------------------------- Component -----------------------------* //
+
 function CameraView(props) {
 
-  const { active, motion, sound, videoSrc, name } = props.camera
+  const { active, motion, sound, id, name } = props.camera
   const { setCurrentCamera } = props;
 
   return (
     <div className="max-h-screen w-full lg:w-3/4 mt-16 pt-4 pb-28 flex flex-col justify-start items-center">
       <div className="w-full px-4 lg:hidden flex items-center">
-        <TfiBackLeft className="fill-white pr-2 w-12 bg-violet-700 h-24 hover:bg-gray-300" onClick={() => {setCurrentCamera(-1)}}/> 
+        <TfiBackLeft 
+          className="fill-white pr-2 w-12 bg-violet-700 h-24 hover:bg-gray-300" 
+          onClick={() => {setCurrentCamera(-1)}}
+        /> 
         <div className={"h-24 w-full my-2 bg-gray-600 flex justify-between items-center"}>
           <h2 className="text-white font-main text-l pl-2 md:text-xl">{name}</h2>
           <span className="h-full flex items-center">
@@ -21,11 +31,13 @@ function CameraView(props) {
       </div>
       <div className="w-full h-full px-4 md:px-24">
         {active ?
-        <iframe 
-          title="YouTube video player"
-          src={`${videoSrc}?autoplay=1`}
-          className="w-full h-full">
-        </iframe> :
+        <ReactPlayer 
+          url={`http://localhost:3030/api/stream/${id}`}
+          playing
+          controls
+          width={"100%"}
+          height={"100%"}
+        /> :
         <div className="bg-black flex flex-col justify-center items-center h-full w-full">
           <BsCameraVideoOffFill className="fill-white h-12 w-12"/>
           <p className="font-main text-white">OFFLINE</p>

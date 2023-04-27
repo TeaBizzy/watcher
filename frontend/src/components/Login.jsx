@@ -1,25 +1,47 @@
+// ___________________________________________________________________________ //
+// *----------------------------- Configuration -----------------------------* //
+
 import React, { useState } from "react";
+import axios from 'axios';
+
+// _______________________________________________________________________ //
+// *----------------------------- Component -----------------------------* //
 
 function Login(props) {
 
-  const { setLoggedIn } = props;
+  const { setCurrentUser } = props;
+
+  // ____________________________________________________________________ //
+  // *----------------------------- States -----------------------------* //
+
   const [loginValues, setLoginValues] = useState({email: '', password: ''});
   const [errorMessage, setErrorMessage] = useState('');
 
   function handleSubmit(e) {
+
     const email = loginValues.email;
     const password = loginValues.password;
 
-    console.log(email);
-    
     e.preventDefault();
-    // user input error handling
-    if (!email) setErrorMessage(`Email can't be blank!`)
-    else if (!password) setErrorMessage(`Password can't be blank!`)
-    else setErrorMessage('')
-
-    console.log('Login');
-    if (!errorMessage) setLoggedIn(true);
+    
+    // User input error handling
+    if (!email) {
+      setErrorMessage(`Email can't be blank!`)
+      return
+    } else if (!password) {
+      setErrorMessage(`Password can't be blank!`)
+      return
+    } else {
+      setErrorMessage('')
+    }
+    
+    axios.post('http://localhost:3030/api/login', {email, password}, {withCredentials: true})
+      .then(res => {
+        setCurrentUser(res.data); // Sets currentUser to their E-mail.
+      })
+      .catch(err => {
+        setErrorMessage(err.response.data)
+      })
   };
 
   return (
@@ -32,7 +54,7 @@ function Login(props) {
           <input className="rounded-r-md focus:outline-none" 
             type="text" 
             name="email"  
-            onChange={e => setLoginValues({...loginValues, email: e.target.value})} 
+            onChange={e => setLoginValues(prev => ({...prev, email: e.target.value}))} 
             value={loginValues.email} />
         </span>
         <span className="flex flex-row justify-end pb-4">
@@ -41,10 +63,10 @@ function Login(props) {
           <input className="rounded-r-md focus:outline-none" 
             type="password" 
             name="password"  
-            onChange={e => setLoginValues({...loginValues, password: e.target.value})} 
+            onChange={e => setLoginValues(prev => ({...prev, password: e.target.value}))} 
             value={loginValues.password} />
         </span>
-        <button type="submit" className="w-24 h-6 bg-violet-700 rounded md text-white font-main hover:bg-violet-300">LOGIN</button>
+        <button type="submit" className="w-24 h-6 bg-violet-700 rounded md text-white font-main hover:bg-violet-300 focus:outline-none focus:bg-violet-300">LOGIN</button>
       </form>
     </div>
   )
