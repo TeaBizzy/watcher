@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors')
 const bcrypt = require('bcrypt');
-const parseSQL = require('../db/parse-sql');
+const parseSQL = require('../utils/parse-sql');
 const client = require('../db/connection');
 
 

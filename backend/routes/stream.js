@@ -3,9 +3,9 @@
 
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const parseSQL = require('../db/parse-sql');
+const parseSQL = require('../utils/parse-sql');
 const client = require('../db/connection');
+const createStream = require('./helpers/create-stream');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -26,24 +26,10 @@ router.get('/:id', (req, res) => {
 
   client.query(getCameraByID, [req.params.id])
     .then(data => {
-      const videoPath = data.rows[0].path;
-      const videoSize = fs.statSync(videoPath).size;
-      const rangeHeader = req.headers.range;
-
-      if(rangeHeader) {
-        const CHUNK_SIZE = (10 ** 6) * 5 // 5MB
-        const start = Number(rangeHeader.replace(/\D/g, ""))
-        const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-        const contentLength = end-start + 1;
-        const file = fs.createReadStream(videoPath, {start, end});
-        const head = {
-          'Content-Range': `bytes ${start}-${end}/${videoSize}`,
-          'Accept-Ranges': 'bytes',
-          'Content-Length': contentLength,
-          'Content-Type': 'video/mp4',
-        };
-        res.writeHead(206, {...head, ...corsOptions})
-        file.pipe(res);
+      const stream = createStream(req.headers.range, data.rows[0].path)
+      if (stream) {
+        stream.file.pipe(res);
+        res.writeHead(206, {...stream.head, ...corsOptions})
       } else {
         res.writeHead(400, 'Missing Range Header', {...corsOptions});
       }
@@ -52,7 +38,6 @@ router.get('/:id', (req, res) => {
       res.status(404);
       res.send();
     })
-
 })
 
 module.exports = router;
