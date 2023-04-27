@@ -18,7 +18,7 @@ router.use(cors({origin: 'http://localhost:3000', credentials: true}))
 
 // Gets camers belonging to user.
 router.get('/:user_id', (req, res) => {
-  const getCamerasByUserID = parseSQL('db/queries/03_get-cameras-by-user-id.sql');
+  const getCamerasByUserID = parseSQL('db/queries/get-cameras-by-user-id.sql');
   if (req.session.id !== Number(req.params.user_id)) {
     return res.sendStatus(401); // Deny access if user isn't logged in
   }

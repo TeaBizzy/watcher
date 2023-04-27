@@ -20,7 +20,7 @@ router.use(cors({origin: 'http://localhost:3000', credentials: true}))
 // Logs user in.
 router.post('/', (req, res) => {
   const credentials = {...req.body};
-  const getUserByEmail = parseSQL('db/queries/01_get-users-by-email.sql');
+  const getUserByEmail = parseSQL('db/queries/get-users-by-email.sql');
 
   client.query(getUserByEmail, [credentials.email]) // Validate email first.
     .then(data => {
@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
           req.session.id = data.rows[0].id
 
           res.status(200)
-          res.json({id: data.rows[0].id, email: data.rows[0].email})
+          res.send({id: data.rows[0].id, email: data.rows[0].email})
         })
     })
     .catch(() => {
@@ -48,8 +48,9 @@ router.post('/', (req, res) => {
 router.get('/validate', (req, res) => {
   if(req.session.email) {
     res.status(200)
-    res.json({email: req.session.email, id: req.session.id});
+    res.send({email: req.session.email, id: req.session.id});
   } else {
+    req.session = null; // Delete bad cookie.
     res.sendStatus(400)
   }
 })

@@ -10,14 +10,19 @@ const client = require('../db/connection');
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true
-}
+};
 
 // ___________________________________________________________________________ //
 // *-------------------------------- Routing --------------------------------* //
 
 // Streams the camera by ID in 5MB chunks.
 router.get('/:id', (req, res) => {
-  const getCameraByID = parseSQL('db/queries/02_get-camera-by-id.sql')
+  // Deny access if user isn't logged in
+  if (!req.session.id) {
+    return res.sendStatus(401);
+  }
+
+  const getCameraByID = parseSQL('db/queries/get-camera-by-id.sql')
 
   client.query(getCameraByID, [req.params.id])
     .then(data => {
@@ -36,14 +41,14 @@ router.get('/:id', (req, res) => {
           'Accept-Ranges': 'bytes',
           'Content-Length': contentLength,
           'Content-Type': 'video/mp4',
-        }
+        };
         res.writeHead(206, {...head, ...corsOptions})
         file.pipe(res);
       } else {
-        res.writeHead(400, 'Missing Range Header', {...corsOptions})
+        res.writeHead(400, 'Missing Range Header', {...corsOptions});
       }
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(404);
       res.send();
     })
