@@ -53,7 +53,7 @@ function Login(props) {
             onChange={e => setLoginValues({...loginValues, password: e.target.value})} 
             value={loginValues.password} />
         </span>
-        <button type="submit" className="w-24 h-6 bg-violet-700 rounded md text-white font-main hover:bg-violet-300">LOGIN</button>
+        <button type="submit" className="w-24 h-6 bg-violet-700 rounded md text-white font-main hover:bg-violet-300 focus:outline-none focus:bg-violet-300">LOGIN</button>
       </form>
     </div>
   )

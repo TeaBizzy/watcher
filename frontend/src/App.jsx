@@ -6,12 +6,15 @@ import CameraList from "./components/CameraList";
 import CameraView from "./components/CameraView";
 import { generateStatus } from "./helpers/camera-status-simulator";
 import MediaQuery from "react-responsive";
+import useValidateSession from "./hooks/useValidateSession";
 
 function App() {
   const [currentUser, setCurrentUser] = useState('');
   const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
   const [cameraData, setCameraData] = useState(getCameraData());
   
+  useValidateSession(setCurrentUser)
+
   // For visual testing of this component
   // TODO: Replace with actual data
   useEffect(() => {
