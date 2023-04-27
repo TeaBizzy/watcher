@@ -19,7 +19,10 @@ router.use(cors({origin: 'http://localhost:3000', credentials: true}))
 
 // Logs user in.
 router.post('/', (req, res) => {
-  const credentials = {...req.body};
+  
+  const email = req.body.email.toLowerCase();
+  const password = req.body.password;
+  const credentials = {email, password};
   const getUserByEmail = parseSQL('db/queries/get-users-by-email.sql');
 
   client.query(getUserByEmail, [credentials.email]) // Validate email first.
