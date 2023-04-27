@@ -42,10 +42,13 @@ router.post('/', (req, res) => {
 })
 
 // Logs user out.
-router.post('/logout', (req, res) => {
-  req.session = null; // Delete encrypted cookie.
-  res.status(200);
-  res.send()
+router.get('/validate', (req, res) => {
+  if(req.session.email) {
+    res.status(200)
+    res.send(req.session.email);
+  } else {
+    res.sendStatus(400)
+  }
 })
 
 module.exports = router;
