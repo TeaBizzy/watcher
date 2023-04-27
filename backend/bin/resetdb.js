@@ -1,8 +1,9 @@
-// other dependencies
+// ___________________________________________________________________________ //
+// *----------------------------- Configuration -----------------------------* //
 const fs = require('fs');
 const db = require('../db/connection');
 
-// Loads the schema files from db/schema
+// Runs the schema files from db/schema.
 const runSchemaFiles = async () => {
   console.log(`-> Loading Schema Files ...`);
   const schemaFilenames = fs.readdirSync('./db/schema');
@@ -14,6 +15,7 @@ const runSchemaFiles = async () => {
   }
 };
 
+// Runs the seed files from db/seeds.
 const runSeedFiles = async () => {
   console.log(`-> Loading Seeds ...`);
   const schemaFilenames = fs.readdirSync('./db/seeds');
@@ -25,6 +27,7 @@ const runSeedFiles = async () => {
   }
 };
 
+// Resets the database.
 const runResetDB = async () => {
   try {
     console.log(`-> Resetting DB...`);

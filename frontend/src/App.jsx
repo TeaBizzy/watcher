@@ -1,63 +1,50 @@
+// ___________________________________________________________________________ //
+// *----------------------------- Configuration -----------------------------* //
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Login from "./components/Login";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CameraList from "./components/CameraList";
 import CameraView from "./components/CameraView";
-import { generateStatus } from "./helpers/camera-status-simulator";
 import MediaQuery from "react-responsive";
 import useValidateSession from "./hooks/useValidateSession";
+import { useSimulateStatus, useSimulateActivity } from "./hooks/useCameraSimulations";
+import useFetchCameras from "./hooks/useFetchCameras";
+
 
 function App() {
-  const [currentUser, setCurrentUser] = useState('');
+  // ____________________________________________________________________ //
+  // *----------------------------- States -----------------------------* //
+  const [currentUser, setCurrentUser] = useState(null);
   const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
-  const [cameraData, setCameraData] = useState(getCameraData());
-  
-  useValidateSession(setCurrentUser)
+  const [cameraData, setCameraData] = useState([]);
+  console.log(currentUser ? true : false)
+  // ___________________________________________________________________ //
+  // *----------------------------- Hooks -----------------------------* //
+  useValidateSession(setCurrentUser);
+  useFetchCameras(currentUser, setCameraData);
+  useSimulateStatus(setCameraData);
+  useSimulateActivity(setCameraData);
 
-  // For visual testing of this component
-  // TODO: Replace with actual data
-  useEffect(() => {
-    const intervalId = setInterval(() => setCameraData(getCameraData), 10000)
-
-    return () => clearInterval(intervalId)
-  }, [])
-
-  function getCameraData() {
-    const cameraCount = 9;
-    const buffer = [];
-    const srcs = [
-      'https://www.youtube.com/embed/9w1u7EmX-54',
-      'https://www.youtube.com/embed/t-6cCrPX8ZA',
-      'https://www.youtube.com/embed/gFRtAAmiFbE',
-      'https://www.youtube.com/embed/lx5vVGxusnc'] // Live stream test srcs
-
-        for (let i = 0; i < cameraCount; i++) {
-          buffer.push({
-            cameraID: i + 1,
-            name: `Camera ${i+1}`,
-            videoSrc: `${srcs[Math.min(i, srcs.length-1)]}`,
-            ...generateStatus()
-          })
-        }
-    
-        return buffer;
-  }
+  console.log(currentUser)
 
   return (
     <>
       {!currentUser ? 
         <Login setCurrentUser={setCurrentUser}/> :
         <>
-          <Header setCurrentUser={setCurrentUser}/>
+          <Header setCurrentUser={setCurrentUser} setCurrentCamera={setCurrentCamera} email={currentUser.email}/>
           <div className="h-screen bg-slate-900 flex flex-row">
+            {/* Mobile View */}
             <MediaQuery maxWidth={1024}>
               {currentCamera === -1 ? 
                 <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} /> :
                 <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>
               }
             </MediaQuery>
-            <MediaQuery minWidth={1024}>
+            {/* Desktop View */}
+            <MediaQuery minWidth={1024}> 
               <CameraList cameras={cameraData} setCurrentCamera={setCurrentCamera} currentCamera={currentCamera} />
               {currentCamera !== -1 && <CameraView camera={cameraData[currentCamera]} setCurrentCamera={setCurrentCamera}/>}
             </MediaQuery>
