@@ -25,8 +25,9 @@ router.get('/:user_id', (req, res) => {
 
   client.query(getCamerasByUserID, [req.params.user_id])
     .then(data => {
+      const cameras = data.rows.map(camera => ({...camera, active: true})) // Set active to true initially.
       res.status(200)
-      res.send(data.rows)
+      res.send(cameras)
     })
 })
 
