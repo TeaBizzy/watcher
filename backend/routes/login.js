@@ -30,9 +30,13 @@ router.post('/', (req, res) => {
           if(!result) {
             return Promise.reject()
           }
-          req.session.email = data.rows[0].email // Create encrypted cookie.
+
+          // Create encrypted cookie.
+          req.session.email = data.rows[0].email 
+          req.session.id = data.rows[0].id
+
           res.status(200)
-          res.json(data.rows[0].email)
+          res.json({id: data.rows[0].id, email: data.rows[0].email})
         })
     })
     .catch(() => {
@@ -41,11 +45,10 @@ router.post('/', (req, res) => {
     })
 })
 
-// Logs user out.
 router.get('/validate', (req, res) => {
   if(req.session.email) {
     res.status(200)
-    res.send(req.session.email);
+    res.json({email: req.session.email, id: req.session.id});
   } else {
     res.sendStatus(400)
   }

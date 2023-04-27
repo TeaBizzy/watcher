@@ -6,7 +6,7 @@ import { TfiBackLeft } from "react-icons/tfi"
 
 function CameraView(props) {
 
-  const { active, motion, sound, cameraID, name } = props.camera
+  const { active, motion, sound, id, name } = props.camera
   const { setCurrentCamera } = props;
 
   return (
@@ -23,7 +23,7 @@ function CameraView(props) {
       <div className="w-full h-full px-4 md:px-24">
         {active ?
         <ReactPlayer 
-          url={`http://localhost:3030/api/stream/${cameraID}`}
+          url={`http://localhost:3030/api/stream/${id}`}
           playing
           controls
           width={"100%"}
