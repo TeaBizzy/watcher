@@ -25,6 +25,8 @@ app.use(cookieSession({
 
 const loginRoutes = require('./routes/login');
 const logoutRoutes = require('./routes/logout');
+const streamRoutes = require('./routes/stream');
+const cameraRoutes = require('./routes/camera');
 
 
 // _____________________________________________________________________ //
@@ -32,6 +34,8 @@ const logoutRoutes = require('./routes/logout');
 
 app.use("/api/login", loginRoutes);
 app.use("/api/logout", logoutRoutes);
+app.use("/api/stream", streamRoutes);
+app.use("/api/camera", cameraRoutes);
 
 
 // _______________________________________________________________________ //
