@@ -1,9 +1,17 @@
+// ___________________________________________________________________________ //
+// *----------------------------- Configuration -----------------------------* //
+
 import React from "react";
 import Camera from "./Camera";
 
+// _______________________________________________________________________ //
+// *----------------------------- Component -----------------------------* //
+
 function CameraList(props) {
 
-  const { cameras, setCameraData, setCurrentCamera, currentCamera } = props;
+  const { cameras, setCurrentCamera, currentCamera } = props;
+
+  // Build Camera Components
   const cameraComponents = cameras.map((camera, idx) => {
     return <Camera 
       key={idx}

@@ -1,5 +1,12 @@
+// ___________________________________________________________________________ //
+// *----------------------------- Configuration -----------------------------* //
+
 import { useEffect } from 'react';
 import { simulateDetections, simulateStatus } from '../helpers/camera-simulations';
+
+
+// ___________________________________________________________________ //
+// *----------------------------- Hooks -----------------------------* //
 
 // Updates camera states with simulated active status.
 export function useSimulateStatus(setCameraData) {  

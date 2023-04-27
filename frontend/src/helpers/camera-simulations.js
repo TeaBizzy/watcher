@@ -1,4 +1,3 @@
-
 // Simulates random motion and sound detection values.
 export function simulateDetections() {
   const soundThreshold = 0.3;
