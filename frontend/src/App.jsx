@@ -31,6 +31,7 @@ function App() {
 
         for (let i = 0; i < cameraCount; i++) {
           buffer.push({
+            cameraID: i + 1,
             name: `Camera ${i+1}`,
             videoSrc: `${srcs[Math.min(i, srcs.length-1)]}`,
             ...generateStatus()
