@@ -10,7 +10,7 @@ export function simulateDetections(randOverride = {}) {
 
 // Simulates a random status value.
 export const simulateStatus = function(randOverride) {
-  const threshold = 0.9;
+  const threshold = 0.70;
   let isActive = !randOverride ? Math.random() <= threshold : randOverride <= threshold
 
   return isActive;
