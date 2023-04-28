@@ -19,15 +19,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
   const [cameraData, setCameraData] = useState([]);
-  console.log(currentUser ? true : false)
+  
   // ___________________________________________________________________ //
   // *----------------------------- Hooks -----------------------------* //
   useValidateSession(setCurrentUser);
   useFetchCameras(currentUser, setCameraData);
   useSimulateStatus(setCameraData);
   useSimulateActivity(setCameraData);
-
-  console.log(currentUser)
 
   return (
     <>
