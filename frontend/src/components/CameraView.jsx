@@ -16,12 +16,11 @@ function CameraView(props) {
   const { setCurrentCamera } = props;
 
   return (
-    <div className="max-h-screen w-full lg:w-3/4 mt-16 pt-4 pb-28 flex flex-col justify-start items-center">
+    <div className="max-h-screen w-full lg:w-3/4 mt-16 pt-4 pb-28 flex flex-col justify-start items-center" data-testid="camera-view-component">
       {/* Back button for mobile view */}
-      <div className="w-full px-4 lg:hidden flex items-center">
+      <div className="w-full px-4 lg:hidden flex items-center" data-testid="back-button" onClick={() => {setCurrentCamera(-1)}}>
         <TfiBackLeft 
           className="fill-white pr-2 w-12 bg-violet-700 h-24 hover:bg-gray-300" 
-          onClick={() => {setCurrentCamera(-1)}}
         /> 
         <div className={"h-24 w-full my-2 bg-gray-600 flex justify-between items-center"}>
           <h2 className="text-white font-main text-l pl-2 md:text-xl">{name}</h2>

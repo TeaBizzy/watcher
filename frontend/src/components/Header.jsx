@@ -21,7 +21,7 @@ function Header(props) {
   }
 
   return (
-    <header>
+    <header data-testid="header-component">
       <div className="fixed top-0 font-logo text-l md:text-4xl px-4 text-white w-full h-16 md:px-12 bg-violet-700 flex flex-row justify-between items-center">
         <h2>{email.toUpperCase()}</h2>
         <button 

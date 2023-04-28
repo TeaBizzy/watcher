@@ -45,7 +45,7 @@ function Login(props) {
   };
 
   return (
-    <div className="bg-slate-900 h-screen w-full flex flex-col justify-center items-center">
+    <div className="bg-slate-900 h-screen w-full flex flex-col justify-center items-center" data-testid="login-component">
       {errorMessage && <p className="text-red-600 font-main">{errorMessage}</p>}
       <form className="flex flex-col items-center" onSubmit={e => handleSubmit(e)}>
         <span className="flex flex-row justify-end pb-4 w-full">
