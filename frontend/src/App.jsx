@@ -16,7 +16,7 @@ import useFetchCameras from "./hooks/useFetchCameras";
 function App() {
   // ____________________________________________________________________ //
   // *----------------------------- States -----------------------------* //
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   const [currentCamera, setCurrentCamera] = useState(-1); // -1 for no camera selected, used for mobile view.
   const [cameraData, setCameraData] = useState([]);
   
@@ -32,7 +32,7 @@ function App() {
       {!currentUser ? 
         <Login setCurrentUser={setCurrentUser}/> :
         <>
-          <Header setCurrentUser={setCurrentUser} email={currentUser.email}/>
+          <Header setCurrentUser={setCurrentUser} setCurrentCamera={setCurrentCamera} email={currentUser.email}/>
           <div className="h-screen bg-slate-900 flex flex-row">
             {/* Mobile View */}
             <MediaQuery maxWidth={1024}>

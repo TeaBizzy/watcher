@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors')
 const bcrypt = require('bcrypt');
-const parseSQL = require('../db/parse-sql');
+const parseSQL = require('../utils/parse-sql');
 const client = require('../db/connection');
 
 
@@ -19,7 +19,10 @@ router.use(cors({origin: 'http://localhost:3000', credentials: true}))
 
 // Logs user in.
 router.post('/', (req, res) => {
-  const credentials = {...req.body};
+  
+  const email = req.body.email.toLowerCase();
+  const password = req.body.password;
+  const credentials = {email, password};
   const getUserByEmail = parseSQL('db/queries/get-users-by-email.sql');
 
   client.query(getUserByEmail, [credentials.email]) // Validate email first.

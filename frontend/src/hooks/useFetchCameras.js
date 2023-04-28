@@ -11,7 +11,7 @@ import axios from 'axios';
 // Gets camera data from the server.
 export default function useFetchCameras(currentUser, setCameraData) {
   useEffect(() => {
-    if (!currentUser.id) {
+    if (!currentUser) {
       return
     }
     axios(`http://localhost:3030/api/camera/${currentUser.id}`, {withCredentials: true})
