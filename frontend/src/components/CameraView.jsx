@@ -45,16 +45,18 @@ function CameraView(props) {
         </div>
         }
       </div>
-      <div className="flex flex-col w-full h-1/4 px-4 mt-4 justify-between items-center lg:flex-row lg:items-start">
-        <div className={`w-full md:w-2/3 h-24 px-4 mb-4 lg:mr-4 border-t-8 bg-gray-600 border-violet-600 flex justify-center items-center rounded-b-md transition-opacity ${motion ? 'opacity-100' : 'opacity-0 duration-1000'}`}>
-          <FaWalking  className="fill-white pr-2 h-12 w-12 lg:h-12 lg:w-12"/>
-          <p className="lg:text-2xl text-lg font-main text-white whitespace-nowrap">Motion Detected</p>
+      { active && 
+        <div className="flex flex-col w-full h-1/4 px-4 mt-4 justify-between items-center lg:flex-row lg:items-start">
+          <div className={`w-full md:w-2/3 h-24 px-4 mb-4 lg:mr-4 border-t-8 bg-gray-600 border-violet-600 flex justify-center items-center rounded-b-md transition-opacity ${motion ? 'opacity-100' : 'opacity-0 duration-1000'}`}>
+            <FaWalking  className="fill-white pr-2 h-12 w-12 lg:h-12 lg:w-12"/>
+            <p className="lg:text-2xl text-lg font-main text-white whitespace-nowrap">Motion Detected</p>
+          </div>
+          <div className={`w-full md:w-2/3 h-24 px-4 border-t-8 bg-gray-600 border-violet-600 flex justify-center items-center rounded-b-md transition-opacity ${sound ? 'opacity-100' : 'opacity-0 duration-1000'}`}>
+            <BsEar className="fill-white pr-2 h-12 w-12 lg:h-12 lg:w-12"/>
+            <p className="lg:text-2xl text-lg font-main text-white whitespace-nowrap">Sound Detected</p>
+          </div>
         </div>
-        <div className={`w-full md:w-2/3 h-24 px-4 border-t-8 bg-gray-600 border-violet-600 flex justify-center items-center rounded-b-md transition-opacity ${sound ? 'opacity-100' : 'opacity-0 duration-1000'}`}>
-          <BsEar className="fill-white pr-2 h-12 w-12 lg:h-12 lg:w-12"/>
-          <p className="lg:text-2xl text-lg font-main text-white whitespace-nowrap">Sound Detected</p>
-        </div>
-      </div>
+      }
     </div>
   )
 }
